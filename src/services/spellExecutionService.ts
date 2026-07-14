@@ -32,6 +32,8 @@ export interface CastInput {
   lastCast: RecentCast | null;
   isTrainingMode: boolean;
   usedGuide: boolean;
+  /** Gancho do cheat de ADM: quando definido, substitui a precisão reconhecida no cálculo de tier/poder/xp. */
+  forcedAccuracy?: number;
 }
 
 export interface CastOutcome {
@@ -72,6 +74,7 @@ export function executeCast(input: CastInput): CastOutcome {
     lastCast,
     isTrainingMode,
     usedGuide,
+    forcedAccuracy,
   } = input;
 
   const templates = spells.map((s) => ({
@@ -116,7 +119,10 @@ export function executeCast(input: CastInput): CastOutcome {
     };
   }
 
-  const accuracy = recognition.bestMatch.score;
+  const accuracy =
+    forcedAccuracy !== undefined
+      ? Math.max(0, Math.min(1, forcedAccuracy))
+      : recognition.bestMatch.score;
   const comboMultiplier = 1 + Math.min(progress.currentStreak, 10) * 0.05;
   const computation = computeSpellCast(spell, accuracy, comboMultiplier);
   const candidateScores = recognition.candidates.map((c) => ({
