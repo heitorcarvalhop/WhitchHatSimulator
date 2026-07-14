@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
 import { AppStateProvider } from '@/app/AppStateContext';
 import { useAppState } from '@/app/useAppState';
+import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts';
 import { AppShell } from '@/components/layout/AppShell';
 import type { AppView } from '@/components/layout/TopBar';
 import { HomePage } from '@/pages/HomePage';
 import { LabPage } from '@/pages/LabPage';
 import { SettingsPanel } from '@/components/settings/SettingsPanel';
 import { ChallengesModal } from '@/components/stats/ChallengesModal';
+import { AdminGate } from '@/components/admin/AdminGate';
+import { AdminConsole } from '@/components/admin/AdminConsole';
 import { ToastContainer } from '@/components/common/ToastContainer';
 import { FpsMonitor } from '@/components/common/FpsMonitor';
 import { BackgroundFog } from '@/canvas/BackgroundFog';
@@ -14,13 +17,38 @@ import { CursorGlow } from '@/canvas/CursorGlow';
 import { useAudioSync } from '@/audio/useAudio';
 
 function AppContent() {
-  const { settings, toasts, dismissToast } = useAppState();
+  const { settings, toasts, dismissToast, pushToast } = useAppState();
   const [view, setView] = useState<AppView>('play');
   const [trainingSpellId, setTrainingSpellId] = useState<string | null>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [challengesOpen, setChallengesOpen] = useState(false);
+  const [adminGateOpen, setAdminGateOpen] = useState(false);
+  const [adminAuthenticated, setAdminAuthenticated] = useState(false);
+  const [adminConsoleOpen, setAdminConsoleOpen] = useState(false);
 
   useAudioSync(settings);
+
+  useKeyboardShortcuts({
+    'ctrl+shift+a': () => {
+      if (adminAuthenticated) {
+        setAdminConsoleOpen((open) => !open);
+      } else {
+        setAdminGateOpen(true);
+      }
+    },
+  });
+
+  const handleAdminUnlock = () => {
+    setAdminAuthenticated(true);
+    setAdminGateOpen(false);
+    setAdminConsoleOpen(true);
+    pushToast('info', 'Acesso concedido', 'Console de administrador desbloqueado.');
+  };
+
+  const handleAdminLock = () => {
+    setAdminAuthenticated(false);
+    setAdminConsoleOpen(false);
+  };
 
   useEffect(() => {
     const root = document.documentElement;
@@ -64,6 +92,12 @@ function AppContent() {
       {settings.showFps && <FpsMonitor />}
       {settingsOpen && <SettingsPanel onClose={() => setSettingsOpen(false)} />}
       {challengesOpen && <ChallengesModal onClose={() => setChallengesOpen(false)} />}
+      {adminGateOpen && (
+        <AdminGate onClose={() => setAdminGateOpen(false)} onUnlock={handleAdminUnlock} />
+      )}
+      {adminConsoleOpen && (
+        <AdminConsole onClose={() => setAdminConsoleOpen(false)} onLock={handleAdminLock} />
+      )}
     </>
   );
 }

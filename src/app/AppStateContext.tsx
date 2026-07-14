@@ -3,19 +3,28 @@ import { BUILTIN_SPELLS } from '@/spells/spellDefinitions';
 import { useSettings } from '@/hooks/useSettings';
 import { usePlayerProgress } from '@/hooks/usePlayerProgress';
 import { useCustomSpells } from '@/hooks/useCustomSpells';
+import { useAdminCheats } from '@/hooks/useAdminCheats';
 import { executeCast, type CastInput, type CastOutcome } from '@/services/spellExecutionService';
 import type { RecentCast } from '@/combinations/combinationEngine';
+import { SPELL_COMBINATIONS } from '@/combinations/combinationDefinitions';
+import { addXp, xpThresholdForLevel } from '@/progression/xp';
+import { CHALLENGES } from '@/progression/challengeDefinitions';
+import { initChallengeProgress } from '@/progression/challenges';
+import { createDefaultProgress } from '@/storage/defaultState';
 import type { Spell } from '@/types';
 import { ENERGY_TICK_MS, maxEnergyForLevel, regenPerSecondForLevel } from './energy';
 import type { AppToast, ToastKind } from './toasts';
 import { createId } from '@/utils/id';
-import { AppStateContext, type AppStateValue } from './context';
+import { AppStateContext, type AdminActions, type AppStateValue } from './context';
+
+const ADMIN_MAX_LEVEL = 99;
 
 export function AppStateProvider({ children }: { children: ReactNode }) {
   const { settings, updateSetting, resetSettings } = useSettings();
   const { progress, setProgress, toggleFavorite } = usePlayerProgress();
   const { customSpells, saveCustomSpell, deleteCustomSpell, duplicateCustomSpell } =
     useCustomSpells();
+  const { cheats, setCheat } = useAdminCheats();
 
   const maxEnergy = useMemo(() => maxEnergyForLevel(progress.level), [progress.level]);
   const [energy, setEnergy] = useState(maxEnergy);
@@ -30,15 +39,18 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const regenPerTick = (regenPerSecondForLevel(progress.level) * ENERGY_TICK_MS) / 1000;
     const id = setInterval(() => {
-      setEnergy((e) => Math.min(maxEnergy, e + regenPerTick));
+      setEnergy((e) =>
+        cheats.infiniteEnergy ? maxEnergy : Math.min(maxEnergy, e + regenPerTick),
+      );
     }, ENERGY_TICK_MS);
     return () => clearInterval(id);
-  }, [progress.level, maxEnergy]);
+  }, [progress.level, maxEnergy, cheats.infiniteEnergy]);
 
   const allSpells = useMemo<Spell[]>(() => [...BUILTIN_SPELLS, ...customSpells], [customSpells]);
   const unlockedSpells = useMemo(
-    () => allSpells.filter((s) => s.unlockLevel <= progress.level),
-    [allSpells, progress.level],
+    () =>
+      cheats.unlockAllSpells ? allSpells : allSpells.filter((s) => s.unlockLevel <= progress.level),
+    [allSpells, progress.level, cheats.unlockAllSpells],
   );
   const spellsById = useMemo(
     () => Object.fromEntries(allSpells.map((s) => [s.id, s])),
@@ -88,6 +100,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
         lastCast,
         isTrainingMode: opts.isTrainingMode ?? false,
         usedGuide: opts.usedGuide ?? false,
+        forcedAccuracy: cheats.autoPerfect ? 1 : undefined,
       });
     },
     [
@@ -98,6 +111,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
       maxEnergy,
       progress,
       lastCast,
+      cheats.autoPerfect,
     ],
   );
 
@@ -114,7 +128,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
         return;
       }
 
-      setEnergy(outcome.energyAfter);
+      setEnergy(cheats.infiniteEnergy ? maxEnergy : outcome.energyAfter);
       setProgress(outcome.updatedProgress);
       setLastCast({ spellId: outcome.spell.id, timestamp: Date.now() });
       setLastOutcome(outcome);
@@ -136,7 +150,74 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
         pushToast('challenge', 'Desafio concluído!', challenge.name);
       }
     },
-    [pushToast, setProgress],
+    [pushToast, setProgress, cheats.infiniteEnergy, maxEnergy],
+  );
+
+  const adminActions = useMemo<AdminActions>(
+    () => ({
+      setLevel: (level) => {
+        const clamped = Math.max(1, Math.min(ADMIN_MAX_LEVEL, Math.round(level)));
+        setProgress((prev) => ({ ...prev, level: clamped, xp: xpThresholdForLevel(clamped) }));
+      },
+      maxLevel: () => {
+        setProgress((prev) => ({
+          ...prev,
+          level: ADMIN_MAX_LEVEL,
+          xp: xpThresholdForLevel(ADMIN_MAX_LEVEL),
+        }));
+      },
+      addXp: (amount) => {
+        setProgress((prev) => addXp(prev, amount).progress);
+      },
+      discoverAllSpells: () => {
+        setProgress((prev) => ({ ...prev, discoveredSpellIds: allSpells.map((s) => s.id) }));
+      },
+      unlockAllCombinations: () => {
+        const comboIds = [
+          ...SPELL_COMBINATIONS.map((c) => c.id),
+          ...allSpells
+            .filter((s) => s.id !== 'aether')
+            .map((s) => `aether-amplified-${s.id}`),
+        ];
+        setProgress((prev) => ({ ...prev, discoveredCombinationIds: comboIds }));
+      },
+      fillEnergy: () => {
+        setEnergy(maxEnergy);
+      },
+      setStreak: (value) => {
+        const clamped = Math.max(0, Math.round(value));
+        setProgress((prev) => ({
+          ...prev,
+          currentStreak: clamped,
+          bestStreak: Math.max(prev.bestStreak, clamped),
+        }));
+      },
+      completeAllChallenges: () => {
+        setProgress((prev) => {
+          let totalReward = 0;
+          const challengeProgress = { ...prev.challengeProgress };
+          for (const challenge of CHALLENGES) {
+            const existing = challengeProgress[challenge.id];
+            if (!existing?.completed) totalReward += challenge.xpReward;
+            challengeProgress[challenge.id] = {
+              challengeId: challenge.id,
+              progress: challenge.target,
+              completed: true,
+              completedAt: existing?.completedAt ?? Date.now(),
+            };
+          }
+          return addXp({ ...prev, challengeProgress }, totalReward).progress;
+        });
+      },
+      resetChallenges: () => {
+        setProgress((prev) => ({ ...prev, challengeProgress: initChallengeProgress() }));
+      },
+      resetProgress: () => {
+        setProgress(createDefaultProgress());
+        setEnergy(maxEnergyForLevel(1));
+      },
+    }),
+    [setProgress, allSpells, maxEnergy],
   );
 
   const value: AppStateValue = {
@@ -162,6 +243,9 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     toasts,
     pushToast,
     dismissToast,
+    cheats,
+    setCheat,
+    adminActions,
   };
 
   return <AppStateContext.Provider value={value}>{children}</AppStateContext.Provider>;

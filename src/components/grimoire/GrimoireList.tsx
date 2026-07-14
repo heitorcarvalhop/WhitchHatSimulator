@@ -11,7 +11,7 @@ export interface GrimoireListProps {
 }
 
 export function GrimoireList({ onTrain }: GrimoireListProps) {
-  const { allSpells, progress, toggleFavorite } = useAppState();
+  const { allSpells, progress, toggleFavorite, cheats } = useAppState();
   const [query, setQuery] = useState('');
   const [activeElement, setActiveElement] = useState<SpellElement | null>(null);
   const [favoritesOnly, setFavoritesOnly] = useState(false);
@@ -54,7 +54,7 @@ export function GrimoireList({ onTrain }: GrimoireListProps) {
 
       <ul className="grimoire-list__items">
         {filtered.map((spell) => {
-          const locked = spell.unlockLevel > progress.level;
+          const locked = !cheats.unlockAllSpells && spell.unlockLevel > progress.level;
           const discovered = progress.discoveredSpellIds.includes(spell.id);
           return (
             <SpellCard
