@@ -1,0 +1,21 @@
+.import-export {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.import-export__actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.import-export__errors {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: var(--af-danger);
+  font-size: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}

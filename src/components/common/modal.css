@@ -1,0 +1,60 @@
+.af-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 2, 10, 0.72);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 800;
+  padding: 1rem;
+}
+
+.af-modal {
+  width: 100%;
+  max-width: 480px;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.af-modal--lg {
+  max-width: 720px;
+}
+
+.af-modal--xl {
+  max-width: 980px;
+}
+
+.af-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.1rem 1.3rem;
+  border-bottom: 1px solid var(--af-border);
+}
+
+.af-modal__header h2 {
+  font-size: 1.25rem;
+}
+
+.af-modal__close {
+  background: transparent;
+  border: none;
+  color: var(--af-text-dim);
+  cursor: pointer;
+  padding: 0.3rem;
+  border-radius: 8px;
+  display: flex;
+}
+
+.af-modal__close:hover {
+  color: var(--af-text);
+  background: var(--af-surface-2);
+}
+
+.af-modal__body {
+  padding: 1.3rem;
+  overflow-y: auto;
+}

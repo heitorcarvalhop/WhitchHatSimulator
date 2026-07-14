@@ -1,0 +1,22 @@
+.fps-monitor {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 999;
+  font-family: monospace;
+  font-size: 0.72rem;
+  padding: 0.2rem 0.45rem;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+}
+
+.fps-monitor--good {
+  color: #7be495;
+}
+.fps-monitor--ok {
+  color: #ffe27a;
+}
+.fps-monitor--bad {
+  color: #ff6a6a;
+}

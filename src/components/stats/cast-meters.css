@@ -1,0 +1,28 @@
+.cast-meters {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid var(--af-border);
+}
+
+.cast-meter__label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.74rem;
+  color: var(--af-text-faint);
+  margin-bottom: 0.25rem;
+}
+
+.cast-meter__track {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--af-surface-3);
+  overflow: hidden;
+}
+
+.cast-meter__fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}

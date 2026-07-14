@@ -1,0 +1,115 @@
+.recognition-feedback {
+  min-height: 4.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 0.35rem;
+  padding: 0 1rem;
+}
+
+.recognition-feedback__hint {
+  color: var(--af-text-faint);
+  font-size: 0.9rem;
+}
+
+.recognition-feedback__name {
+  font-family: var(--af-font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-shadow: 0 0 18px currentColor;
+}
+
+.recognition-feedback__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.35rem;
+}
+
+.recognition-feedback__tier {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  font-weight: 700;
+  border: 1px solid currentColor;
+}
+
+.tier-fail {
+  color: var(--af-danger);
+}
+.tier-unstable {
+  color: #ff9e5e;
+}
+.tier-common {
+  color: var(--af-text-dim);
+}
+.tier-powerful {
+  color: var(--af-success);
+}
+.tier-perfect {
+  color: var(--af-gold);
+}
+.tier-legendary {
+  color: var(--af-accent);
+  box-shadow: 0 0 12px currentColor;
+}
+
+.recognition-feedback__bar {
+  width: 100px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--af-surface-3);
+  overflow: hidden;
+}
+
+.recognition-feedback__bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.recognition-feedback__percent {
+  font-variant-numeric: tabular-nums;
+  font-size: 0.85rem;
+  color: var(--af-text-dim);
+}
+
+.recognition-feedback__combo {
+  margin-top: 0.3rem;
+  color: var(--af-gold);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.recognition-feedback__message {
+  color: var(--af-text-dim);
+  font-size: 0.88rem;
+}
+
+.recognition-feedback__message--warning {
+  color: var(--af-danger);
+}
+
+.recognition-feedback__candidates {
+  list-style: none;
+  margin: 0.4rem 0 0;
+  padding: 0;
+  display: flex;
+  gap: 0.6rem;
+  font-size: 0.78rem;
+  color: var(--af-text-faint);
+}
+
+.recognition-feedback__candidates li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--af-border);
+  border-radius: 8px;
+}

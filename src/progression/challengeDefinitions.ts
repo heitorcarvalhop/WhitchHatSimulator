@@ -1,0 +1,60 @@
+import type { Challenge } from '@/types';
+
+export const CHALLENGES: Challenge[] = [
+  {
+    id: 'three-perfect-casts',
+    name: 'Mão Firme',
+    description: 'Execute três feitiços perfeitos ou lendários.',
+    conditionType: 'perfect-casts',
+    target: 3,
+    xpReward: 60,
+  },
+  {
+    id: 'discover-combination',
+    name: 'Reação Arcana',
+    description: 'Descubra uma combinação de feitiços.',
+    conditionType: 'discover-combination',
+    target: 1,
+    xpReward: 50,
+  },
+  {
+    id: 'fast-draw',
+    name: 'Reflexo de Mago',
+    description: 'Desenhe um símbolo reconhecido em menos de dois segundos.',
+    conditionType: 'fast-draw',
+    target: 1,
+    xpReward: 35,
+  },
+  {
+    id: 'all-elements',
+    name: 'Mestre dos Elementos',
+    description: 'Execute pelo menos um feitiço de cada um dos dez elementos.',
+    conditionType: 'all-elements',
+    target: 10,
+    xpReward: 100,
+  },
+  {
+    id: 'five-cast-streak',
+    name: 'Sequência Arcana',
+    description: 'Execute cinco feitiços seguidos sem falhar.',
+    conditionType: 'cast-streak',
+    target: 5,
+    xpReward: 70,
+  },
+  {
+    id: 'accuracy-95',
+    name: 'Precisão Cirúrgica',
+    description: 'Consiga uma precisão superior a 95% em um desenho.',
+    conditionType: 'accuracy-above',
+    target: 95,
+    xpReward: 55,
+  },
+  {
+    id: 'no-guide-cast',
+    name: 'Sem Rede de Segurança',
+    description: 'Complete um feitiço no modo de treinamento sem usar nenhuma ajuda visual.',
+    conditionType: 'no-guide-cast',
+    target: 1,
+    xpReward: 40,
+  },
+];

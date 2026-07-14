@@ -1,0 +1,109 @@
+.spell-card {
+  list-style: none;
+  display: flex;
+  align-items: stretch;
+  border: 1px solid var(--af-border);
+  border-radius: var(--af-radius-md);
+  background: var(--af-surface-2);
+  overflow: hidden;
+  transition:
+    border-color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.spell-card:hover {
+  border-color: color-mix(in srgb, var(--spell-color, var(--af-accent)) 60%, var(--af-border));
+  transform: translateX(2px);
+}
+
+.spell-card--locked {
+  opacity: 0.55;
+}
+
+.spell-card__main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 0.75rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  color: inherit;
+  min-width: 0;
+}
+
+.spell-card__main:disabled {
+  cursor: default;
+}
+
+.spell-card__icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--spell-color, var(--af-accent)) 18%, var(--af-surface-3));
+  color: var(--af-text-faint);
+  flex-shrink: 0;
+}
+
+.spell-card__info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.spell-card__name {
+  font-weight: 700;
+  font-family: var(--af-font-display);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.spell-card__meta {
+  font-size: 0.75rem;
+  color: var(--af-text-faint);
+}
+
+.spell-card__casts {
+  font-size: 0.7rem;
+  color: var(--af-text-faint);
+}
+
+.spell-card__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: 0.4rem 0.6rem;
+  border-left: 1px solid var(--af-border);
+}
+
+.spell-card__favorite {
+  background: transparent;
+  border: none;
+  color: var(--af-gold);
+  cursor: pointer;
+  padding: 0.2rem;
+}
+
+.spell-card__train {
+  background: transparent;
+  border: 1px solid var(--af-border);
+  border-radius: 6px;
+  color: var(--af-text-dim);
+  font-size: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.spell-card__train:hover {
+  border-color: var(--af-accent);
+  color: var(--af-accent);
+}

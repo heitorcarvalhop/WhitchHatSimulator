@@ -1,0 +1,122 @@
+.background-fog {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 20%, #1a1230 0%, #0a0714 55%, #050308 100%);
+}
+
+.background-fog__stars {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 10% 20%, #ffffff88, transparent),
+    radial-gradient(1px 1px at 80% 10%, #ffffff66, transparent),
+    radial-gradient(1.5px 1.5px at 40% 60%, #ffffff77, transparent),
+    radial-gradient(1px 1px at 60% 80%, #ffffff55, transparent),
+    radial-gradient(1px 1px at 90% 50%, #ffffff44, transparent),
+    radial-gradient(1.5px 1.5px at 25% 85%, #ffffff66, transparent);
+  background-repeat: repeat;
+  background-size: 100% 100%;
+  opacity: 0.6;
+  animation: fog-twinkle 6s ease-in-out infinite alternate;
+}
+
+.background-fog__blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.35;
+  mix-blend-mode: screen;
+}
+
+.background-fog__blob--1 {
+  width: 42vw;
+  height: 42vw;
+  top: -10%;
+  left: -8%;
+  background: radial-gradient(circle, #6d3fd8, transparent 70%);
+  animation: fog-drift-1 38s ease-in-out infinite alternate;
+}
+
+.background-fog__blob--2 {
+  width: 36vw;
+  height: 36vw;
+  bottom: -12%;
+  right: -6%;
+  background: radial-gradient(circle, #2f7dbf, transparent 70%);
+  animation: fog-drift-2 44s ease-in-out infinite alternate;
+}
+
+.background-fog__blob--3 {
+  width: 28vw;
+  height: 28vw;
+  top: 40%;
+  right: 20%;
+  background: radial-gradient(circle, #c9455f, transparent 70%);
+  animation: fog-drift-3 50s ease-in-out infinite alternate;
+}
+
+.background-fog__blob--4 {
+  width: 24vw;
+  height: 24vw;
+  bottom: 15%;
+  left: 15%;
+  background: radial-gradient(circle, #3fae7a, transparent 70%);
+  animation: fog-drift-1 55s ease-in-out infinite alternate-reverse;
+}
+
+.background-fog__vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, #05030880 100%);
+}
+
+.background-fog--static .background-fog__blob,
+.background-fog--static .background-fog__stars {
+  animation: none;
+}
+
+@keyframes fog-twinkle {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 0.75;
+  }
+}
+
+@keyframes fog-drift-1 {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(6%, 4%) scale(1.08);
+  }
+}
+
+@keyframes fog-drift-2 {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(-5%, -6%) scale(1.05);
+  }
+}
+
+@keyframes fog-drift-3 {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(-8%, 5%) scale(1.1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .background-fog__blob,
+  .background-fog__stars {
+    animation: none;
+  }
+}

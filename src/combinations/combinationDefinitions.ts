@@ -1,0 +1,107 @@
+import type { Spell, SpellCombination } from '@/types';
+
+export const SPELL_COMBINATIONS: SpellCombination[] = [
+  {
+    id: 'firestorm',
+    name: 'Tempestade de Fogo',
+    description: 'O vento alimenta as chamas em um redemoinho ardente que consome tudo ao redor.',
+    spellIds: ['ignis', 'ventus'],
+    orderMatters: false,
+    windowMs: 2500,
+    particlePresetId: 'fire',
+    soundId: 'combo-firestorm',
+    powerMultiplier: 1.8,
+    color: '#ff8a3d',
+  },
+  {
+    id: 'storm-surge',
+    name: 'Tempestade Elétrica',
+    description: 'A água conduz a eletricidade em arcos crepitantes que saltam entre as gotas.',
+    spellIds: ['aqua', 'fulmen'],
+    orderMatters: false,
+    windowMs: 2500,
+    particlePresetId: 'electric',
+    soundId: 'combo-storm-surge',
+    powerMultiplier: 1.9,
+    color: '#8be9ff',
+  },
+  {
+    id: 'ice-prison',
+    name: 'Prisão de Gelo',
+    description: 'A água se solidifica instantaneamente, aprisionando o alvo em cristais rígidos.',
+    spellIds: ['aqua', 'glacies'],
+    orderMatters: false,
+    windowMs: 2500,
+    particlePresetId: 'snow',
+    soundId: 'combo-ice-prison',
+    powerMultiplier: 1.7,
+    color: '#bff6ff',
+  },
+  {
+    id: 'magma',
+    name: 'Magma',
+    description: 'A terra derrete sob calor insuportável, transbordando em rios incandescentes.',
+    spellIds: ['terra', 'ignis'],
+    orderMatters: false,
+    windowMs: 2500,
+    particlePresetId: 'fire',
+    soundId: 'combo-magma',
+    powerMultiplier: 1.85,
+    color: '#ff5a1f',
+  },
+  {
+    id: 'eclipse',
+    name: 'Eclipse',
+    description: 'Luz e sombra se anulam em um equilíbrio impossível, escurecendo tudo ao redor.',
+    spellIds: ['lux', 'umbra'],
+    orderMatters: false,
+    windowMs: 2500,
+    particlePresetId: 'shadow',
+    soundId: 'combo-eclipse',
+    powerMultiplier: 2,
+    color: '#c9a8ff',
+  },
+  {
+    id: 'blizzard',
+    name: 'Nevasca',
+    description: 'O vento gelado transforma flocos de neve em uma tempestade cegante.',
+    spellIds: ['ventus', 'glacies'],
+    orderMatters: false,
+    windowMs: 2500,
+    particlePresetId: 'snow',
+    soundId: 'combo-blizzard',
+    powerMultiplier: 1.75,
+    color: '#e6f9ff',
+  },
+  {
+    id: 'living-forest',
+    name: 'Floresta Viva',
+    description: 'A água nutre a natureza, fazendo raízes e flores brotarem instantaneamente.',
+    spellIds: ['vita', 'aqua'],
+    orderMatters: false,
+    windowMs: 2500,
+    particlePresetId: 'leaves',
+    soundId: 'combo-living-forest',
+    powerMultiplier: 1.7,
+    color: '#7be495',
+  },
+];
+
+export const AETHER_SPELL_ID = 'aether';
+const AETHER_COMBO_WINDOW_MS = 2500;
+
+/** Aether amplifies whichever element it is paired with — synthesized on demand, not a fixed pair. */
+export function createAetherAmplifiedCombination(other: Spell): SpellCombination {
+  return {
+    id: `aether-amplified-${other.id}`,
+    name: `Aether Amplificado: ${other.name}`,
+    description: `A energia arcana pura amplia ${other.name}, elevando seu poder muito além do normal.`,
+    spellIds: [AETHER_SPELL_ID, other.id],
+    orderMatters: false,
+    windowMs: AETHER_COMBO_WINDOW_MS,
+    particlePresetId: other.particlePresetId,
+    soundId: 'combo-aether-amplified',
+    powerMultiplier: 2.2,
+    color: '#e8d5ff',
+  };
+}

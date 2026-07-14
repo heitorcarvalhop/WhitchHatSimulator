@@ -1,0 +1,120 @@
+@keyframes af-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes af-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes af-slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes af-slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes af-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes af-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes af-shake {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  20% {
+    transform: translate3d(-6px, 2px, 0);
+  }
+  40% {
+    transform: translate3d(5px, -2px, 0);
+  }
+  60% {
+    transform: translate3d(-4px, 1px, 0);
+  }
+  80% {
+    transform: translate3d(3px, -1px, 0);
+  }
+}
+
+@keyframes af-flash {
+  0% {
+    opacity: 0;
+  }
+  15% {
+    opacity: var(--flash-peak, 0.6);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.af-anim-fade-in {
+  animation: af-fade-in calc(0.4s / var(--af-anim-speed, 1)) ease both;
+}
+
+.af-anim-slide-up {
+  animation: af-slide-up calc(0.45s / var(--af-anim-speed, 1)) cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.af-anim-pop {
+  animation: af-pop calc(0.5s / var(--af-anim-speed, 1)) cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.af-anim-shake {
+  animation: af-shake calc(0.5s / var(--af-anim-speed, 1)) ease;
+}
+
+.af-screen-flash {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 900;
+  animation: af-flash calc(0.6s / var(--af-anim-speed, 1)) ease-out forwards;
+}

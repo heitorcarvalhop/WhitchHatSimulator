@@ -1,0 +1,76 @@
+.challenges-modal__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.challenges-modal__item {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.7rem;
+  border: 1px solid var(--af-border);
+  border-radius: var(--af-radius-md);
+  background: var(--af-surface-2);
+}
+
+.challenges-modal__item.is-complete {
+  border-color: var(--af-success);
+}
+
+.challenges-modal__icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--af-surface-3);
+  color: var(--af-text-faint);
+  flex-shrink: 0;
+}
+
+.is-complete .challenges-modal__icon {
+  color: var(--af-success);
+}
+
+.challenges-modal__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.challenges-modal__title-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+}
+
+.challenges-modal__title-row span {
+  color: var(--af-gold);
+  font-size: 0.78rem;
+}
+
+.challenges-modal__body p {
+  font-size: 0.78rem;
+  color: var(--af-text-dim);
+  margin: 0.2rem 0 0.4rem;
+}
+
+.challenges-modal__track {
+  height: 5px;
+  border-radius: 999px;
+  background: var(--af-surface-3);
+  overflow: hidden;
+}
+
+.challenges-modal__fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--af-accent-2), var(--af-success));
+}
+
+.challenges-modal__progress-label {
+  font-size: 0.68rem;
+  color: var(--af-text-faint);
+}

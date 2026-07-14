@@ -1,0 +1,55 @@
+.settings-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.settings-panel section h3 {
+  font-size: 0.95rem;
+  color: var(--af-accent);
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--af-border);
+}
+
+.settings-panel__select {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.85rem;
+  padding: 0.5rem 0;
+}
+
+.settings-panel__select select {
+  background: var(--af-surface-3);
+  border: 1px solid var(--af-border);
+  border-radius: 8px;
+  color: var(--af-text);
+  padding: 0.35rem 0.5rem;
+  font: inherit;
+}
+
+.settings-panel__data-actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+
+.settings-panel__reset-btn {
+  align-self: flex-start;
+}
+
+.settings-panel__confirm {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  font-size: 0.82rem;
+  color: var(--af-danger);
+  background: color-mix(in srgb, var(--af-danger) 10%, transparent);
+  border: 1px solid var(--af-danger);
+  border-radius: var(--af-radius-md);
+  padding: 0.6rem 0.8rem;
+}

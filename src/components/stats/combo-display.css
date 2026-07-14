@@ -1,0 +1,53 @@
+.combo-display {
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid var(--af-border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.combo-display__row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.combo-display__row > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.combo-display__label {
+  font-size: 0.68rem;
+  color: var(--af-text-faint);
+  text-transform: uppercase;
+}
+
+.combo-display__value {
+  font-family: var(--af-font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--af-accent);
+}
+
+.combo-display__level {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--af-text-dim);
+}
+
+.combo-display__xp-track {
+  flex: 1;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--af-surface-3);
+  overflow: hidden;
+}
+
+.combo-display__xp-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--af-gold), var(--af-accent));
+  transition: width 0.5s ease;
+}

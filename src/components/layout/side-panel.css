@@ -1,0 +1,136 @@
+.side-panel {
+  width: 320px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  border-radius: 0;
+  transition:
+    width 0.3s ease,
+    padding 0.3s ease;
+  overflow: hidden;
+}
+
+.side-panel--left {
+  border-top: none;
+  border-bottom: none;
+  border-left: none;
+}
+
+.side-panel--right {
+  border-top: none;
+  border-bottom: none;
+  border-right: none;
+}
+
+.side-panel--collapsed {
+  width: 56px;
+}
+
+.side-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--af-border);
+  flex-shrink: 0;
+}
+
+.side-panel__header h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+.side-panel--collapsed .side-panel__header h2 span,
+.side-panel--collapsed .side-panel__header h2 {
+  font-size: 0;
+}
+
+.side-panel__header-actions {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.side-panel__collapse,
+.side-panel__close-mobile {
+  background: transparent;
+  border: 1px solid var(--af-border);
+  border-radius: 6px;
+  color: var(--af-text-faint);
+  padding: 0.3rem;
+  cursor: pointer;
+  display: flex;
+}
+
+.side-panel__collapse:hover {
+  color: var(--af-accent);
+  border-color: var(--af-accent);
+}
+
+.side-panel__close-mobile {
+  display: none;
+}
+
+.side-panel__scroll {
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.side-panel-scrim {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .side-panel {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: min(86vw, 340px) !important;
+    z-index: 400;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .side-panel--left {
+    left: 0;
+    transform: translateX(-105%);
+  }
+
+  .side-panel--right {
+    right: 0;
+    transform: translateX(105%);
+  }
+
+  .side-panel--mobile-open {
+    transform: translateX(0);
+  }
+
+  .side-panel--collapsed {
+    width: min(86vw, 340px) !important;
+  }
+
+  .side-panel--collapsed:not(.side-panel--mobile-open) {
+    display: none;
+  }
+
+  .side-panel__collapse {
+    display: none;
+  }
+
+  .side-panel__close-mobile {
+    display: flex;
+  }
+
+  .side-panel-scrim {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 390;
+  }
+}

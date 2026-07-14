@@ -1,0 +1,52 @@
+.training-banner {
+  position: absolute;
+  top: 0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.55rem 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: calc(100% - 1.5rem);
+}
+
+.training-banner__info {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.78rem;
+  color: var(--af-text-dim);
+}
+
+.training-banner__help {
+  display: flex;
+  gap: 0.3rem;
+  flex-wrap: wrap;
+}
+
+.training-banner__chip {
+  border: 1px solid var(--af-border);
+  background: var(--af-surface-2);
+  color: var(--af-text-faint);
+  border-radius: 999px;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.7rem;
+  cursor: pointer;
+}
+
+.training-banner__chip.is-active {
+  background: var(--af-accent-2);
+  border-color: var(--af-accent-2);
+  color: white;
+}
+
+@media (max-width: 640px) {
+  .training-banner {
+    top: 0.4rem;
+  }
+  .training-banner__help {
+    display: none;
+  }
+}

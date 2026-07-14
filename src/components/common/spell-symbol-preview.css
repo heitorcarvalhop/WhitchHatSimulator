@@ -1,0 +1,10 @@
+.spell-symbol-preview {
+  filter: drop-shadow(0 0 6px currentColor);
+  flex-shrink: 0;
+}
+
+.spell-symbol-preview--locked {
+  color: var(--af-text-faint);
+  opacity: 0.5;
+  filter: none;
+}

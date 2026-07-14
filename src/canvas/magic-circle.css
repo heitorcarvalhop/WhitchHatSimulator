@@ -1,0 +1,87 @@
+.magic-circle {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 0 24px color-mix(in srgb, var(--circle-color) 45%, transparent));
+  transition: filter 0.4s ease;
+}
+
+.magic-circle__ring {
+  fill: none;
+  stroke: color-mix(in srgb, var(--circle-color) 65%, #e8e2ff 35%);
+  stroke-opacity: 0.55;
+  stroke-width: 1.2;
+}
+
+.magic-circle__ring--outer {
+  stroke-dasharray: 2 6;
+}
+
+.magic-circle__ring--mid {
+  stroke-opacity: 0.35;
+}
+
+.magic-circle__runes rect {
+  fill: color-mix(in srgb, var(--circle-color) 70%, #fff 30%);
+  opacity: 0.75;
+}
+
+.magic-circle__runes--secondary rect {
+  fill: color-mix(in srgb, var(--circle-color) 50%, #fff 50%);
+  opacity: 0.5;
+}
+
+.magic-circle__sigil {
+  stroke: color-mix(in srgb, var(--circle-color) 60%, #e8e2ff 40%);
+  stroke-opacity: calc(0.15 + var(--energy-ratio) * 0.35);
+  transition: stroke-opacity 0.6s ease;
+}
+
+.magic-circle__core {
+  fill: var(--circle-color);
+  opacity: calc(0.4 + var(--energy-ratio) * 0.6);
+  filter: drop-shadow(0 0 10px var(--circle-color));
+}
+
+.magic-circle__rotator {
+  transform-origin: 200px 200px;
+  animation: magic-circle-spin 60s linear infinite;
+}
+
+.magic-circle__rotator--slow {
+  animation-duration: 90s;
+}
+
+.magic-circle__rotator--reverse {
+  animation-direction: reverse;
+  animation-duration: 70s;
+}
+
+.magic-circle--casting .magic-circle__rotator {
+  animation-duration: 8s;
+}
+
+.magic-circle--casting {
+  filter: drop-shadow(0 0 40px color-mix(in srgb, var(--circle-color) 70%, transparent));
+}
+
+.magic-circle--static .magic-circle__rotator {
+  animation: none;
+}
+
+@keyframes magic-circle-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .magic-circle__rotator {
+    animation: none;
+  }
+}

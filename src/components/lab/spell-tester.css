@@ -1,0 +1,36 @@
+.spell-tester {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.spell-tester__hint {
+  font-size: 0.78rem;
+  color: var(--af-text-faint);
+}
+
+.spell-tester__canvas {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-width: 340px;
+  border-radius: var(--af-radius-md);
+  border: 1px dashed var(--af-border-strong);
+  background: var(--af-surface-3);
+  overflow: hidden;
+}
+
+.spell-tester__actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.spell-tester__score {
+  font-weight: 700;
+  font-family: var(--af-font-display);
+}
+
+.spell-tester__warning {
+  font-size: 0.78rem;
+  color: var(--af-danger);
+}

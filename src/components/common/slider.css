@@ -1,0 +1,22 @@
+.af-slider {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.5rem 0;
+}
+
+.af-slider__label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+}
+
+.af-slider__value {
+  color: var(--af-text-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.af-slider input[type='range'] {
+  width: 100%;
+  accent-color: var(--af-accent);
+}

@@ -1,0 +1,36 @@
+.symbol-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.symbol-editor__canvas {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-width: 340px;
+  border-radius: var(--af-radius-md);
+  border: 1px dashed var(--af-border-strong);
+  background: var(--af-surface-3);
+  overflow: hidden;
+}
+
+.symbol-editor__controls {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  font-size: 0.8rem;
+  color: var(--af-text-dim);
+}
+
+.symbol-editor__toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+}
+
+.symbol-editor__count {
+  color: var(--af-text-faint);
+}
