@@ -5,7 +5,6 @@ import { Icon } from '@/components/common/Icon';
 import { sha256Hex } from '@/utils/hash';
 import './admin-gate.css';
 
-/** SHA-256 de "Zerotwo002!" — o hash fica no bundle, não a senha em texto puro. */
 const ADMIN_PASSWORD_HASH = '00a5710a70ff5616fc3053823399a391a7d052fd781a24a9c4855df403ddec3a';
 
 export interface AdminGateProps {
